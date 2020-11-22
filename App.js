@@ -33,14 +33,13 @@ export default function ImagePickerExample() {
   // }, []);
 
   const getStorageImage = async () => {
-    // if(Constants.platform.ios) {
-    //   const { status } = await Permission.askAsync(Permission.CAMERA_ROLL);
-
-    //   if(!status === 'garanted'){
-    //     alert("Precisamos dessa permissão")
-    //     return
-    //   }
-    // }
+    if(Constants.platform.ios) {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if(!status === 'garanted'){
+        alert("Precisamos dessa permissão")
+        return
+      }
+    }
 
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -61,6 +60,13 @@ export default function ImagePickerExample() {
   };
 
   const getCamImage = async () => {
+    if(Constants.platform.ios) {
+      const { status } = await ImagePicker.requestCameraRollPermissionsAsync();
+      if(!status === 'garanted'){
+        alert("Precisamos dessa permissão")
+        return
+      }
+    }
     let result = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
       quality: 1,
